@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
 enable :sessions  
 
@@ -20,11 +21,10 @@ post '/' do
     n.updated_at = Time.now  
     if n.save  
     	flash[:notice] = "Note created successfully." 
-      redirect '/' 
     else  
     	flash[:error] = "Failed to save note."
-      redirect '/'  
-    end  
+    end
+  redirect '/'   
 end  
 
 get '/:id' do  
@@ -41,7 +41,7 @@ end
 put '/:id' do  
   n = Note.get params[:id]  
   unless  n
-  	flash[:error] = "Note not found"
+  	flash[:error] = "Note not found."
   	redirect '/'
   end
   n.content = params[:content] 
@@ -51,31 +51,47 @@ put '/:id' do
   n.updated_at = Time.now  
   if n.save  
   	flash[:notice] = "Note updated successfully."
-  	redirect '/' 
   else
-  	flash[:error] = "Error updating note"
-  	redirect '/'
+  	flash[:error] = "Error updating note."
   end
+  redirect '/' 
 end  
 
 get '/:id/delete' do
 	@note = Note.get params[:id]
 	@title = "Confirm deletion of note ##{params[:id]}"
-	erb :delete
+  if @note
+	 erb :delete
+  else
+    flash[:error] = "Note not found."
+    redirect '/'
+  end
 end
 
 delete '/:id' do  
   n = Note.get params[:id]  
-  n.destroy  
-  redirect '/'  
+  if n.destroy  
+    flash[:notice] = "Note deleted successfully."
+  else
+    flash[:error] = "Error deleting note."
+  end
+  redirect '/' 
 end 
 
 get '/:id/complete' do  
-  n = Note.get params[:id]  
+  n = Note.get params[:id] 
+  unless n
+    flash[:error] = "Note not found." 
+    redirect '/'
+  end 
   n.complete = n.complete ? 0 : 1 # flip it  
   n.updated_at = Time.now  
-  n.save  
-  redirect '/'  
+  if n.save  
+    flash[:notice] = "Note marked as complete."
+  else
+    flash[:error] = "Error marking note as complete."
+  end 
+  redirect '/' 
 end 
 
 ###########################################################
