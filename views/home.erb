@@ -1,0 +1,23 @@
+<section id="add">  
+  <form action="/" method="post">  
+    <textarea name="content" placeholder="What do you need to remember?"></textarea>  
+    <input type="submit" value="Add to List!">  
+  </form>  
+</section>  
+
+<% @notes.each do |note| %>  
+  <article <%='class="complete"' if note.complete %>>  
+    <h3>  
+      <%=h note.content %>  
+      <span><a href="/<%= note.id %>">[edit]</a></span>  
+    </h3>  
+    <p class="links"> 
+      <% if !note.complete %> 
+        <a href="/<%= note.id %>/complete">Mark Completed</a>
+      <% else %>
+        <a href="/<%= note.id %>/complete">Uncheck</a>
+      <% end %>
+    </p>  
+    <p class="meta">Created: <%= note.created_at %></p>  
+  </article>  
+<% end %>  
