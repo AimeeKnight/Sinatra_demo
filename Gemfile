@@ -3,11 +3,11 @@ gem 'sinatra'
 gem 'sinatra-flash'
 gem 'data_mapper'
 
-group :production do
-	gem 'pg'
-	gem 'dm-postgres-adapter'
+group :development do
+   gem 'dm-sqlite-adapter'
 end
 
-group :development do
-	gem 'dm-sqlite-adapter'
+group :production do
+  gem 'pg'
+  gem 'dm-postgres-adapter'
 end
