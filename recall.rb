@@ -97,7 +97,7 @@ end
 
 ###########################################################
 #Set up new SQLite3 db in current directory named recall.db
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")  
+# DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")  
   
 #NDataMapper creates table as 'Notes'
 class Note  
