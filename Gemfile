@@ -2,5 +2,11 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'data_mapper'
-gem 'dm-postgres-adapter', :group => :production
-gem 'dm-sqlite-adapter', :group => :development
+
+group :production do
+	gem 'dm-postgres-adapter'
+end
+
+group :development do
+	gem 'dm-sqlite-adapter'
+end
