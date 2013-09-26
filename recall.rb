@@ -1,6 +1,9 @@
 require 'sinatra'
+
+require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
+
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
 enable :sessions  
