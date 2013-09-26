@@ -1,10 +1,8 @@
 require 'sinatra'
-
-require 'sinatra'
-require 'data_mapper'
 require 'sinatra/flash'
-
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
+require 'data_mapper'
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+# DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
 
 enable :sessions  
 
