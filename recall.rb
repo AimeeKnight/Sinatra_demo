@@ -3,7 +3,7 @@ require 'sinatra/flash'
 require 'data_mapper'
 
 # DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
-DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_YELLOW_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
 
 enable :sessions  
 
