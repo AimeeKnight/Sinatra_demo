@@ -4,7 +4,7 @@ require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
 
 enable :sessions  
 
