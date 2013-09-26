@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/flash'
 require 'data_mapper'
+require 'dm-sqlite-adapter'
 # DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
 
