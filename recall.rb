@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/flash'
 require 'data_mapper'
+require 'builder'
 
 # DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/recall.db")
@@ -16,18 +17,27 @@ get '/' do
     erb :home  
 end  
 
-post '/' do  
-    n = Note.new  
-    n.content = params[:content]  
-    n.created_at = Time.now  
-    n.updated_at = Time.now  
-    if n.save  
-    	flash[:notice] = "Note created successfully." 
-    else  
-    	flash[:error] = "Failed to save note."
+post '/' do
+  builder do |xml|
+    xml.instruct!
+    xml.Response do
+      xml.Say("Hello this is Aimee's app")
     end
-  redirect '/'   
-end  
+  end
+end
+
+# post '/' do  
+#     n = Note.new  
+#     n.content = params[:content]  
+#     n.created_at = Time.now  
+#     n.updated_at = Time.now  
+#     if n.save  
+#     	flash[:notice] = "Note created successfully." 
+#     else  
+#     	flash[:error] = "Failed to save note."
+#     end
+#   redirect '/'   
+# end  
 
 get '/:id' do  
   @note = Note.get params[:id]  
